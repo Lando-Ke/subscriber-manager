@@ -19,7 +19,7 @@ class SubscriberController extends Controller
     {
         //return new SubscriberCollection(Subscriber::paginate(25));
         return response([
-            'subscribers' => new SubscriberCollection(Subscriber::paginate(25)),
+            'subscribers' => new SubscriberCollection(Subscriber::paginate(20)),
             'status' => 'SUCCESS'
         ], 206);
     }
