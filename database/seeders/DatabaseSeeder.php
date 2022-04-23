@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Subscriber;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(StatesTableSeeder::class);
+        Subscriber::factory(20)->create();
     }
 }
