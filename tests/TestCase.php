@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use phpDocumentor\Reflection\Types\Void_;
+use Illuminate\Support\Facades\Artisan;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -12,5 +12,7 @@ abstract class TestCase extends BaseTestCase
     public function setUp(): Void
     {
         parent::setUp();
+        Artisan::call('migrate:refresh');
+        Artisan::call('db:seed');
     }
 }
