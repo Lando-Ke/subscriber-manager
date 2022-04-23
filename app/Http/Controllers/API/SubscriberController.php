@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SubscriberCollection;
 use App\Http\Resources\SubscriberResource;
 use App\Models\Subscriber;
 use App\Services\SubscriberService;
@@ -16,8 +17,9 @@ class SubscriberController extends Controller
      */
     public function index()
     {
+        //return new SubscriberCollection(Subscriber::paginate(25));
         return response([
-            'subscribers' => SubscriberResource::collection(Subscriber::with('state')->paginate(25)),
+            'subscribers' => new SubscriberCollection(Subscriber::paginate(25)),
             'status' => 'SUCCESS'
         ], 206);
     }
