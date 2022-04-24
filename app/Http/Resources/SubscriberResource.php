@@ -18,21 +18,12 @@ class SubscriberResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email_address' => $this->email_address,
-            'created_at' => (string) $this->created_at,
-            'updated_at' => (string) $this->updated_at,
             'state' => $this->state->name,
-            'fields' => $this->getCustomFields($this->meta)
+            'state_id' => $this->state_id,
+            'fields' => FieldResource::collection($this->fields),
+            'created_at' => (string) $this->created_at,
+            'updated_at' => (string) $this->updated_at
         ];
-    }
-
-    private function getCustomFields($fields)
-    {
-        $customFields = [];
-        foreach ($fields as $field) {
-            $customFields[$field->key] = $field->value;
-        }
-
-        return $customFields;
     }
 
 }

@@ -9,5 +9,10 @@ class Field extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'type'];
+    protected $fillable = ['subscriber_id','title', 'type', 'value'];
+
+    public function subscriber()
+    {
+        return $this->belongsTo(Subscriber::class);
+    }
 }

@@ -18,7 +18,7 @@ class StateController extends Controller
     public function index()
     {
         return response([
-            'states' => StateResource::collection(State::with('subscribers')->paginate(25)),
+            'states' => StateResource::collection(State::all()),
             'status' => 'SUCCESS'
         ], 200);
     }

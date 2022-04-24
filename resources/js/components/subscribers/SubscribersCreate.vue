@@ -22,15 +22,17 @@
                            v-model="form.email_address">
                 </div>
             </div>
-
             <div>
-                <label for="address" class="block text-sm font-medium text-gray-700">State</label>
+                <label for="state" class="block text-sm font-medium text-gray-700">State</label>
                 <div class="mt-1">
-                    <input type="text" name="address" id="address"
-                           class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                           v-model="form.state">
+                    <select v-model="form.state_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option v-for="option in options" :value="option.value">
+                            {{ option.text }}
+                        </option>
+                    </select>
                 </div>
             </div>
+
         </div>
 
         <button type="submit"
@@ -42,23 +44,33 @@
 
 <script>
     import useSubscribers from '../../composables/subscribers'
-    import {reactive} from 'vue'
+    import {onMounted, reactive} from 'vue'
 
     export default {
+        //TODO: Dynamically fetch states to populate drop down select
+        data() {
+            return {
+                selected: 'active',
+                options: [
+                    { text: 'active', value: 1 },
+                    { text: 'unsubscribed', value: 2 },
+                    { text: 'junk', value: 3 },
+                    { text: 'bounced', value: 4 },
+                    { text: 'unconfirmed', value: 5 },
+                ]
+            }
+        },
         setup() {
+            //TODO Creation of custom fields
             const form = reactive({
                 name: '',
                 email_address: '',
-                state: '',
-                fields: {
-                    company: {
-                        type: "string",
-                        value: "wayne Enterprises"
-                    }
-                }
+                state_id: 1
             });
 
-            const {errors, storeSubscriber} = useSubscribers();
+            const {errors, states, storeSubscriber, getStates} = useSubscribers();
+
+            onMounted(getStates);
 
             const saveSubscriber = async () => {
                 await storeSubscriber({...form})
@@ -67,6 +79,7 @@
             return {
                 form,
                 errors,
+                states,
                 saveSubscriber
             }
         }

@@ -5,10 +5,8 @@ namespace App\Http\Requests;
 use App\Exceptions\ValidationErrorException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\ValidationException;
 
-class SubscriberRequest extends FormRequest
+class FieldRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +26,9 @@ class SubscriberRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string'],
-            'email_address' => ['required', 'email'],
-            'state_id' => ['required', 'int'],
+            'title' => 'required|string',
+            'type' => 'required|in:' . implode(',', config('subscriber.fields.allowed')),
+            'value' => 'required|string',
         ];
     }
 

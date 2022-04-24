@@ -24,11 +24,13 @@
             </div>
 
             <div>
-                <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                <label for="state_id" class="block text-sm font-medium text-gray-700">State</label>
                 <div class="mt-1">
-                    <input type="text" name="address" id="address"
-                           class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                           v-model="subscriber.state">
+                    <select v-model="subscriber.state_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option v-for="option in options" :value="option.value">
+                            {{ option.text }}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -45,6 +47,18 @@
     import { onMounted } from 'vue';
 
     export default {
+        data() {
+            return {
+                selected: 'active',
+                options: [
+                    { text: 'active', value: 1 },
+                    { text: 'unsubscribed', value: 2 },
+                    { text: 'junk', value: 3 },
+                    { text: 'bounced', value: 4 },
+                    { text: 'unconfirmed', value: 5 },
+                ]
+            }
+        },
         props: {
             id: {
                 required: true,

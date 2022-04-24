@@ -15,8 +15,10 @@ class CreateFieldsTable extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
+            $table->foreignId('subscriber_id');
+            $table->string('title');
             $table->string('type');
+            $table->string('value');
             $table->timestamps();
         });
     }
