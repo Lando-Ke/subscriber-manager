@@ -310,7 +310,7 @@ http://localhost:8000/register
 * **Method:**
   `PUT`
 * **Sample Request**
-  ```
+  ```json
   {
 	"title" : "height",
 	"type" : "number",
