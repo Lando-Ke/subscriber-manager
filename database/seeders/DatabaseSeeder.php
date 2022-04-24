@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Subscriber;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(StatesTableSeeder::class);
-        Subscriber::factory(20)->create();
+        $this->call(SubscribersTableSeeder::class);
     }
+
 }

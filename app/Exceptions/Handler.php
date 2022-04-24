@@ -50,6 +50,13 @@ class Handler extends ExceptionHandler
             //
         });
 
+        $this->renderable(function (ValidationErrorException $e) {
+
+            return response()->json([
+                'errors' => $e->getMessage(),
+            ], 422);
+        });
+
         $this->renderable(function (InvalidFieldException $e, $request) {
             $fields = config('subscriber.fields.allowed');
             $last = array_pop($fields);

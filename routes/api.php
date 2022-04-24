@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('subscribers', 'SubscriberController');
 Route::get('subscribers/search/{searchBy}/{query}', 'SubscriberController@search');
 Route::apiResource('states', 'StateController');
+Route::apiResource('subscriber/{subscriber}/fields', 'FieldController');

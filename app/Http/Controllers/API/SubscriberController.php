@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubscriberRequest;
+use App\Http\Resources\SubscriberCollection;
 use App\Http\Resources\SubscriberResource;
 use App\Models\Subscriber;
 use App\Services\SubscriberService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class SubscriberController extends Controller
 {
@@ -17,32 +20,23 @@ class SubscriberController extends Controller
     public function index()
     {
         return response([
-            'subscribers' => SubscriberResource::collection(Subscriber::with('state')->paginate(25)),
-            'status' => 'SUCCESS'
+            'subscribers' => new SubscriberCollection(Subscriber::with('fields')->orderBy('created_at', 'DESC')->paginate(50)),
+            'status' => 'SUCCESS',
         ], 206);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Services\SubscriberService $subscriberService
+     * @param \App\Http\Requests\SubscriberRequest $request
      * @return \App\Http\Resources\SubscriberResource|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function store(Request $request, SubscriberService $subscriberService)
+    public function store(SubscriberRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'email_address' => 'required|unique:subscribers',
-            'state' => 'required',
-            'fields' => 'array|min:1'
-        ]);
 
-        if ($validator->fails()) {
-            return response(['status' => 'ERROR', 'error' => $validator->errors()]);
-        }
+        $subscriber = Subscriber::create($request->validated());
 
-        return $subscriberService->createSubscriber($request);
+        return new SubscriberResource($subscriber);
     }
 
     /**
@@ -59,14 +53,16 @@ class SubscriberController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\SubscriberRequest $request
      * @param \App\Models\Subscriber $subscriber
-     * @param \App\Services\SubscriberService $subscriberService
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subscriber $subscriber, SubscriberService $subscriberService)
+    public function update(SubscriberRequest $request, Subscriber $subscriber)
     {
-        return $subscriberService->updateSubscriber($request, $subscriber);
+
+        $subscriber->update($request->validated());
+        return response(['subscriber' => new SubscriberResource($subscriber), 'status' => 'SUCCESS'], 200);
+
     }
 
     /**
