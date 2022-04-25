@@ -20,4 +20,12 @@ class Subscriber extends Model
     {
         return $this->hasMany(Field::class);
     }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($subscriber) {
+            $subscriber->fields()->delete();
+        });
+    }
 }
