@@ -22,7 +22,7 @@ To run it:
 ```sh
 $npm run dev; php artisan serve
 ```
-Then open http://localhost:8000 to see it in action
+The app should now be available on http://localhost:8000 
 
 ### Running the tests
 ```sh
@@ -32,6 +32,18 @@ $composer test
 ### users
 To view the front-end you will be required to create a user by going to
 http://localhost:8000/register
+
+### Front End (Laravel Breeze)
+This app uses vue 3 for the front-end and has been built using the composition API
+If you ran npm install during the setup process all the dependencies should be installed
+
+After creating a user you will be redirected to /dashboard where you can view a list of subscribers, Add a subscriber, edit and delete them
+Additional work is required to make field creation possible
+![Screenshot 2022-04-25 at 08 25 05](https://user-images.githubusercontent.com/6400931/165026036-321fa1c6-af28-406e-b6c3-582b198bdc56.png)
+![Screenshot 2022-04-25 at 08 25 26](https://user-images.githubusercontent.com/6400931/165026078-501db55a-984f-4716-a1ce-5a5eb2821983.png)
+![Screenshot 2022-04-25 at 08 25 39](https://user-images.githubusercontent.com/6400931/165026097-4703aec5-6a86-4b2e-9b4f-3ce0bec524bf.png)
+![Screenshot 2022-04-25 at 08 25 59](https://user-images.githubusercontent.com/6400931/165026118-f002932c-3459-40d2-a0e8-47f66e58ab12.png)
+
 
 ### API endpoints
 
@@ -320,6 +332,7 @@ http://localhost:8000/register
   
     
 ### Todos
+ - Add validation rule to ensure custom field is unique to subscriber
  - Add Field view to Front End
  - Add Pagination to Front End
  - Make it possible to create fields when creating subscriber
