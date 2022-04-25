@@ -12,6 +12,7 @@ gh repo clone Lando-Ke/subscriber-manager
 $cd subscriber-manager
 composer install
 npm-install
+create local database and update the .env file
 $php artisan migrate
 $php artisan db:seed
 ```
