@@ -320,6 +320,7 @@ http://localhost:8000/register
   
     
 ### Todos
+ - Add validation rule to ensure custom field is unique to subscriber
  - Add Field view to Front End
  - Add Pagination to Front End
  - Make it possible to create fields when creating subscriber
