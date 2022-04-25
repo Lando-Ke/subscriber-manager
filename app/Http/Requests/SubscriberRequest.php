@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Exceptions\ValidationErrorException;
+use App\Rules\DomainIsActiveRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -29,7 +30,7 @@ class SubscriberRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email_address' => ['required', 'email'],
+            'email_address' => ['required', 'email', new DomainIsActiveRule()],
             'state_id' => ['required', 'int'],
         ];
     }
